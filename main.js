@@ -104,7 +104,7 @@ module.exports = {
         "finish": function() {
 
             // 最终写入索引数据
-            fs.writeFileSync(path.join(config.output , './search_pro_index.json'),
+            fs.writeFileSync('./_book/search_pro_index.json',
                 JSON.stringify(
                     {
                         pageIndex : pageIndex,
@@ -112,7 +112,6 @@ module.exports = {
                     }
                 )
             );
-
         }
     }
 };

@@ -18,7 +18,6 @@
     "gitbook": "*"
   },
   "dependencies": {
-    "lodash": "^3.10.1",
     "nodejieba": "^1.4.1"
   },
   "analyze": true,

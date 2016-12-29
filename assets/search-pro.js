@@ -1,4 +1,4 @@
-require(['gitbook', 'lodash'], function(gitbook, _) {
+require(['gitbook'], function(gitbook) {
     var events = gitbook.events;
     var sidebar = gitbook.sidebar;
     var state = gitbook.state;
@@ -13,7 +13,7 @@ require(['gitbook', 'lodash'], function(gitbook, _) {
         if ($searchForm) $searchForm.remove();
 
         $searchForm = $('<div>', {
-            'class': 'book-search',
+            'class': 'book-search with-search',
             'role': 'search'
         });
 
@@ -21,7 +21,7 @@ require(['gitbook', 'lodash'], function(gitbook, _) {
             'type': 'text',
             'class': 'form-control',
             'val': value,
-            'placeholder': 'Type to search'
+            'placeholder': '查找…'
         });
 
         $searchInput.appendTo($searchForm);
@@ -64,10 +64,12 @@ require(['gitbook', 'lodash'], function(gitbook, _) {
         // 匹配到的Page序列
         var matchPageIndexs = indexData.searchIndexMap[keyword];
 
-        // 生成供筛选参数（路径列表）
-        _(matchPageIndexs).forEach(function(matchIndex) {
-            matchPaths.push(indexData.pageIndex[matchIndex].path);
-        }).value();
+        if(matchPageIndexs){
+            for(var i=0; i< matchPageIndexs.length; i++){
+                var matchIndex= matchPageIndexs[i];
+                matchPaths.push(indexData.pageIndex[matchIndex].path);
+            }
+        }
         
         return matchPaths;
     };
@@ -152,14 +154,6 @@ require(['gitbook', 'lodash'], function(gitbook, _) {
 
         // Create search form
         createForm();
-        // Create the toggle search button
-        gitbook.toolbar.createButton({
-            icon: 'fa fa-search',
-            label: 'Search',
-            position: 'left',
-            onClick: toggleSearch
-        });
-        
     };
 
     // ----- 声明周期事件 ------
